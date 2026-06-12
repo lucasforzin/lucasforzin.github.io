@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Luca Sforzin | Mobility Engineering</title>
+<meta name="description" content="Luca Sforzin — Mobility Engineering portfolio. Transport planning, network analysis, infrastructure design." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10202B;
+    --ink-soft:#1B313F;
+    --paper:#F6F4EE;
+    --paper-dim:#ECE8DE;
+    --line:#3FA8A3;
+    --line-soft:#BFE3E0;
+    --signal:#E2933C;
+    --text-main:#1B2A33;
+    --text-soft:#5C6E78;
+    --text-on-ink:#E8EEEC;
+    --text-on-ink-soft:#9FB6BE;
+    --radius:10px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--paper);
+    color:var(--text-main);
+    line-height:1.6;
+    font-size:16px;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  img{max-width:100%;display:block;border-radius:6px;}
+
+  /* ===================== LAYOUT ===================== */
+  .layout{
+    display:grid;
+    grid-template-columns: 320px 1fr;
+    min-height:100vh;
+  }
+
+  /* ===================== SIDEBAR ===================== */
+  .sidebar{
+    background:var(--ink);
+    color:var(--text-on-ink);
+    padding:48px 36px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:40px;
+  }
+
+  .profile-block{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .profile-photo{
+    width:84px;height:84px;border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--line);
+  }
+
+  .profile-name{
+    font-size:1.5rem;
+    color:#fff;
+  }
+
+  .profile-role{
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--line-soft);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  .coord-tag{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    color:var(--ink);
+    background:var(--line);
+    padding:2px 7px;
+    border-radius:4px;
+    letter-spacing:0.03em;
+    margin-bottom:6px;
+  }
+
+  nav.sidenav{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+
+  nav.sidenav a{
+    font-size:0.92rem;
+    color:var(--text-on-ink-soft);
+    padding:7px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    transition:color 0.15s ease, padding-left 0.15s ease;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  nav.sidenav a:hover{
+    color:#fff;
+    padding-left:6px;
+  }
+
+  nav.sidenav a .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--line);
+    flex-shrink:0;
+  }
+
+  .sidebar-section{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .sidebar-heading{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--line);
+    margin-bottom:4px;
+  }
+
+  .contact-line{
+    font-size:0.88rem;
+    color:var(--text-on-ink-soft);
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .contact-line span.icon{
+    color:var(--line);
+    font-family:'JetBrains Mono', monospace;
+    flex-shrink:0;
+  }
+  .contact-line a:hover{color:#fff;}
+
+  .skill-tag{
+    display:inline-block;
+    font-size:0.78rem;
+    padding:4px 10px;
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:20px;
+    color:var(--text-on-ink-soft);
+    margin:0 6px 6px 0;
+  }
+
+  .lang-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.88rem;
+    color:var(--text-on-ink-soft);
+    padding:4px 0;
+  }
+  .lang-row strong{color:#fff;font-weight:500;}
+
+  .sidebar-footer{
+    margin-top:auto;
+    font-size:0.75rem;
+    color:rgba(255,255,255,0.25);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  /* ===================== MAIN CONTENT ===================== */
+  main{
+    padding:64px 64px 100px;
+    max-width:920px;
+  }
+
+  section{
+    margin-bottom:88px;
+  }
+
+  .section-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--line);
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .section-eyebrow::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:linear-gradient(to right, var(--line-soft), transparent);
+  }
+
+  h2.section-title{
+    font-size:2rem;
+    margin-bottom:28px;
+    color:var(--ink);
+  }
+
+  /* ===================== HERO ===================== */
+  .hero{
+    padding-top:24px;
+    margin-bottom:96px;
+  }
+
+  .hero-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.85rem;
+    color:var(--line);
+    letter-spacing:0.08em;
+    margin-bottom:18px;
+  }
+
+  .hero h1{
+    font-size:3.4rem;
+    margin-bottom:18px;
+  }
+
+  .hero h1 .accent{
+    color:var(--line);
+  }
+
+  .hero-sub{
+    font-size:1.15rem;
+    color:var(--text-soft);
+    max-width:640px;
+    margin-bottom:32px;
+  }
+
+  .hero-stats{
+    display:flex;
+    gap:36px;
+    flex-wrap:wrap;
+    border-top:1px solid var(--paper-dim);
+    padding-top:28px;
+  }
+
+  .hero-stat{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+
+  .hero-stat .num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.7rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+
+  .hero-stat .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.74rem;
+    color:var(--text-soft);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    max-width:140px;
+  }
+
+  /* ===================== ABOUT ===================== */
+  .about-text{
+    font-size:1.02rem;
+    color:var(--text-main);
+    max-width:680px;
+  }
+  .about-text p{margin-bottom:16px;}
+
+  /* ===================== EXPERIENCE ===================== */
+  .timeline{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .timeline-item{
+    display:grid;
+    grid-template-columns: 150px 1fr;
+    gap:24px;
+    padding:24px 0;
+    border-top:1px solid var(--paper-dim);
+  }
+
+  .timeline-item:first-child{
+    border-top:1px solid var(--paper-dim);
+  }
+
+  .timeline-date{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.8rem;
+    color:var(--line);
+    padding-top:3px;
+  }
+
+  .timeline-date .place{
+    display:block;
+    color:var(--text-soft);
+    margin-top:4px;
+    font-size:0.76rem;
+  }
+
+  .timeline-role{
+    font-size:1.08rem;
+    font-weight:600;
+    font-family:'Space Grotesk', sans-serif;
+    margin-bottom:2px;
+  }
+
+  .timeline-org{
+    font-size:0.92rem;
+    color:var(--text-soft);
+    margin-bottom:10px;
+  }
+
+  .timeline-desc{
+    font-size:0.95rem;
+    color:var(--text-main);
+    max-width:600px;
+  }
+  .timeline-desc ul{
+    padding-left:18px;
+    margin-top:6px;
+  }
+  .timeline-desc li{margin-bottom:4px;}
+
+  /* ===================== EDUCATION ===================== */
+  .edu-card{
+    border:1px solid var(--paper-dim);
+    border-radius:var(--radius);
+    padding:24px 28px;
+    margin-bottom:16px;
+    background:#fff;
+  }
+  .edu-card .timeline-date{padding-top:0;margin-bottom:6px;}
+  .edu-card .timeline-role{margin-bottom:4px;}
+  .edu-card .timeline-org{margin-bottom:8px;}
+
+  /* ===================== SKILLS ===================== */
+  .skills-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:32px;
+  }
+
+  .skill-group h4{
+    font-size:0.95rem;
+    margin-bottom:12px;
+    color:var(--ink);
+  }
+
+  .skill-pill-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .skill-pill{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    padding:5px 12px;
+    background:var(--paper-dim);
+    border-radius:6px;
+    color:var(--text-main);
+    border:1px solid transparent;
+  }
+
+  .skill-pill.accent{
+    background:var(--ink);
+    color:var(--line-soft);
+  }
+
+  /* ===================== PROJECTS ===================== */
+  .project-card{
+    border:1px solid var(--paper-dim);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-bottom:40px;
+    background:#fff;
+  }
+
+  .project-image{
+    width:100%;
+    border-radius:0;
+    border-bottom:1px solid var(--paper-dim);
+  }
+
+  .project-body{
+    padding:28px 32px;
+  }
+
+  .project-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--line);
+    margin-bottom:8px;
+  }
+
+  .project-title{
+    font-size:1.35rem;
+    margin-bottom:6px;
+  }
+
+  .project-meta{
+    font-size:0.85rem;
+    color:var(--text-soft);
+    margin-bottom:14px;
+  }
+
+  .project-desc{
+    font-size:0.96rem;
+    color:var(--text-main);
+    max-width:680px;
+    margin-bottom:14px;
+  }
+
+  .project-desc p{margin-bottom:10px;}
+
+  .tech-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:12px;
+  }
+
+  .tech-pill{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    padding:4px 9px;
+    background:var(--paper-dim);
+    border-radius:5px;
+    color:var(--text-soft);
+  }
+
+  /* ===================== THESIS ===================== */
+  .thesis-banner{
+    background:var(--ink);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+  }
+
+  .thesis-content{
+    padding:40px 40px;
+    color:var(--text-on-ink);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .thesis-content .coord-tag{margin-bottom:14px;}
+
+  .thesis-content h3{
+    font-size:1.6rem;
+    color:#fff;
+    margin-bottom:14px;
+  }
+
+  .thesis-content p{
+    font-size:0.95rem;
+    color:var(--text-on-ink-soft);
+    margin-bottom:12px;
+  }
+
+  .thesis-image{
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+  }
+  .thesis-image img{border-radius:0;}
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.82rem;
+    color:var(--ink);
+    background:var(--line);
+    padding:10px 18px;
+    border-radius:6px;
+    margin-top:8px;
+    width:fit-content;
+    transition:opacity 0.15s ease;
+  }
+  .btn:hover{opacity:0.85;}
+
+  /* ===================== CONTACT ===================== */
+  .contact-section{
+    text-align:left;
+  }
+
+  .contact-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-top:24px;
+  }
+
+  .contact-card{
+    border:1px solid var(--paper-dim);
+    border-radius:var(--radius);
+    padding:20px;
+    background:#fff;
+  }
+
+  .contact-card .coord-tag{
+    background:var(--ink);
+    color:var(--line);
+    margin-bottom:10px;
+  }
+
+  .contact-card a, .contact-card span.value{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.92rem;
+    color:var(--ink);
+    word-break:break-word;
+  }
+
+  .contact-card a:hover{color:var(--line);}
+
+  footer{
+    border-top:1px solid var(--paper-dim);
+    padding-top:24px;
+    font-size:0.8rem;
+    color:var(--text-soft);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 880px){
+    .layout{grid-template-columns:1fr;}
+    .sidebar{
+      position:relative;
+      height:auto;
+      padding:32px 28px;
+    }
+    main{padding:48px 24px 80px;}
+    .hero h1{font-size:2.4rem;}
+    .timeline-item{grid-template-columns:1fr;gap:6px;}
+    .skills-grid{grid-template-columns:1fr;}
+    .thesis-banner{grid-template-columns:1fr;}
+    .thesis-image{order:-1;}
+    .contact-cards{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar">
+    <div class="profile-block">
+      <img src="images/profile_photo.png" alt="Luca Sforzin" class="profile-photo" />
+      <div>
+        <div class="profile-name">Luca Sforzin</div>
+        <div class="profile-role">Mobility Engineering Student</div>
+      </div>
+    </div>
+
+    <nav class="sidenav">
+      <a href="#about"><span class="dot"></span>About</a>
+      <a href="#experience"><span class="dot"></span>Experience</a>
+      <a href="#education"><span class="dot"></span>Education</a>
+      <a href="#skills"><span class="dot"></span>Skills</a>
+      <a href="#projects"><span class="dot"></span>Projects</a>
+      <a href="#thesis"><span class="dot"></span>Thesis</a>
+      <a href="#contact"><span class="dot"></span>Contact</a>
+    </nav>
+
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Languages</div>
+      <div class="lang-row"><span>Italian</span><strong>Native</strong></div>
+      <div class="lang-row"><span>English</span><strong>TOEIC — Fluent</strong></div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Contact</div>
+      <div class="contact-line"><span class="icon">@</span><a href="mailto:lucasforzin580@gmail.com">lucasforzin580@gmail.com</a></div>
+      <div class="contact-line"><span class="icon">#</span><a href="tel:+393408771216">+39 340 877 1216</a></div>
+      <div class="contact-line"><span class="icon">in</span><a href="#" target="_blank">linkedin.com/in/lucasforzin</a></div>
+    </div>
+
+    <div class="sidebar-footer">© 2026 Luca Sforzin</div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-eyebrow">[ 45.6495° N, 12.3000° E ] — Veneto, Italy</div>
+      <h1>Designing the networks<br>that move <span class="accent">people</span>.</h1>
+      <p class="hero-sub">
+        I'm a mobility engineering student at the Politecnico di Milano, working at the intersection
+        of transport planning, infrastructure design and data-driven network analysis. I build models
+        that help cities and operators move people more efficiently — from public transport networks
+        to construction-phase accessibility studies.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="num">PoliMi</span>
+          <span class="label">M.Sc. Mobility Engineering, in progress</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num">PwC</span>
+          <span class="label">Associate Consultant — Advisory, in progress</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num">UniTS</span>
+          <span class="label">B.Sc. Industrial Engineering, 2023</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-eyebrow">01 — About</div>
+      <h2 class="section-title">Profile</h2>
+      <div class="about-text">
+        <p>
+          I'm currently completing my Master's Degree in Mobility Engineering at the Politecnico di Milano,
+          focusing on transportation planning, mobility infrastructures and services, and railway systems.
+          My academic path builds on a Bachelor's Degree in Industrial Engineering (Mechanical curriculum)
+          from the University of Trieste, where my thesis explored electric mobility and new urban models.
+        </p>
+        <p>
+          I'm currently working as an Associate Consultant in PwC's Advisory practice, applying data-driven
+          analysis to operational performance, flow optimization, resource allocation, and cost-benefit
+          evaluation for infrastructure and mobility projects.
+        </p>
+        <p>
+          Across my academic and professional experiences, I've worked with GIS, network analysis,
+          PTV Visum, Python and R for transport modeling, demand analysis, and accessibility studies —
+          always with the goal of translating data into practical decisions for how people and cities move.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-eyebrow">02 — Experience</div>
+      <h2 class="section-title">Work Experience</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-date">04/2026 — present
+            <span class="place">Milan, Italy</span>
+          </div>
+          <div>
+            <div class="timeline-role">Associate Consultant</div>
+            <div class="timeline-org">PwC Italy — Advisory</div>
+            <div class="timeline-desc">
+              Applying data-driven analysis to improve operational performance, developing models for
+              flow optimization and resource allocation, and supporting decision-making through
+              performance evaluation and cost-benefit analysis.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">10/2025 — 04/2026
+            <span class="place">Milan, Italy</span>
+          </div>
+          <div>
+            <div class="timeline-role">Mobility and Transport Engineer</div>
+            <div class="timeline-org">NET Engineering International</div>
+            <div class="timeline-desc">
+              Territorial and urban analysis to support the design of a new public transport service.
+              Development of simulation and exercise models to assess impact on the urban context,
+              using GIS data, big mobility data and modeling tools to analyze supply and demand.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">06/2020 — 09/2020
+            <span class="place">Veneto, Italy</span>
+          </div>
+          <div>
+            <div class="timeline-role">Electrician</div>
+            <div class="timeline-org">Elettros System</div>
+            <div class="timeline-desc">
+              Wiring of switchboards, installation, repair and testing of equipment for power generation,
+              and construction of civil installations with cabling and photovoltaic panels.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">05/2019 — 06/2019
+            <span class="place">Chisinau, Moldova</span>
+          </div>
+          <div>
+            <div class="timeline-role">Supporting the Software Security Manager</div>
+            <div class="timeline-org">Cedacri International</div>
+            <div class="timeline-desc">
+              International scholarship internship: assisted the security manager in developing
+              security software programming lines for banks.
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">05/2018 — 06/2018
+            <span class="place">Veneto, Italy</span>
+          </div>
+          <div>
+            <div class="timeline-role">Supporting the Design Engineer</div>
+            <div class="timeline-org">Enteco Srl</div>
+            <div class="timeline-desc">
+              Technical drawing and structural calculations, with data export from AutoCAD to Excel
+              for the design office.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-eyebrow">03 — Education</div>
+      <h2 class="section-title">Education</h2>
+
+      <div class="edu-card">
+        <div class="timeline-date">2024 — in progress</div>
+        <div class="timeline-role">Master's Degree in Mobility Engineering</div>
+        <div class="timeline-org">Politecnico di Milano, Italy</div>
+        <div class="timeline-desc">
+          Focus on Transportation Planning, Mobility Infrastructures and Services, and Railway Vehicles
+          and Logistic Solutions.
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="timeline-date">2020 — 2023</div>
+        <div class="timeline-role">Bachelor's Degree in Industrial Engineering — Mechanical Curriculum</div>
+        <div class="timeline-org">University of Trieste, Italy</div>
+        <div class="timeline-desc">
+          Thesis: <em>"Electric mobility and new models of cities"</em> — decarbonization of transport,
+          electric vehicles, smart cities, Superblocks, Low Traffic Neighbourhoods and Mobility as a Service.
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="timeline-date">2015 — 2020</div>
+        <div class="timeline-role">High School Diploma</div>
+        <div class="timeline-org">ITTS Vito Volterra</div>
+        <div class="timeline-desc">
+          Majoring in robotics, electronics and electrical engineering.
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-eyebrow">04 — Skills</div>
+      <h2 class="section-title">Skills &amp; Tools</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h4>Modeling &amp; Analysis</h4>
+          <div class="skill-pill-row">
+            <span class="skill-pill accent">PTV Visum</span>
+            <span class="skill-pill accent">QGIS</span>
+            <span class="skill-pill accent">Network Analysis</span>
+            <span class="skill-pill accent">Demand Modeling</span>
+            <span class="skill-pill accent">GTFS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Programming &amp; Data</h4>
+          <div class="skill-pill-row">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">R</span>
+            <span class="skill-pill">Data Visualization</span>
+            <span class="skill-pill">Optimization (scipy)</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Software</h4>
+          <div class="skill-pill-row">
+            <span class="skill-pill">Microsoft Office (Excel, Word, PowerPoint)</span>
+            <span class="skill-pill">AutoCAD</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Design &amp; Presentation</h4>
+          <div class="skill-pill-row">
+            <span class="skill-pill">Canva</span>
+            <span class="skill-pill">Graphic Design</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-eyebrow">05 — Projects</div>
+      <h2 class="section-title">Selected University Projects</h2>
+
+      <!-- Project 1: Venice ACTV -->
+      <div class="project-card">
+        <img src="images/network_p2_0.jpg" alt="ACTV navigation network map of Venice" class="project-image" />
+        <div class="project-body">
+          <div class="project-tag">Network Analysis for Mobility and Transportation</div>
+          <h3 class="project-title">Strategic Resource Allocation During Strikes: the Venice Navigation System Case</h3>
+          <div class="project-meta">Politecnico di Milano — with ACTV (Azienda del Consorzio Trasporti Veneziano)</div>
+          <div class="project-desc">
+            <p>
+              A network analysis of the ACTV water transport system in Venice — 16 lines and 65 aggregated
+              piers serving around 95 million passengers a year. The project reconstructs an origin-destination
+              matrix from partial boarding/alighting data through a quadratic optimization model, then analyzes
+              the network at macro, micro and meso scale (degree, strength, betweenness, closeness, k-coreness
+              and s-core centrality) to identify the most critical nodes — Ferrovia, Piazzale Roma and San Zaccaria.
+            </p>
+            <p>
+              The second part of the study addresses how to reallocate limited resources during strikes,
+              comparing four strategies — a Combined Centrality Score, a Criticality Index, Commuter Flow
+              Centrality, and a uniform reduction — for both partial frequency cuts and full line closures,
+              while preserving lagoon-wide connectivity.
+            </p>
+          </div>
+          <img src="images/network_p6_0.jpg" alt="K-coreness map of the Venice navigation network" style="margin-bottom:10px;" />
+          <div class="tech-row">
+            <span class="tech-pill">Python — scipy.optimize (L-BFGS-B)</span>
+            <span class="tech-pill">PTV Visum</span>
+            <span class="tech-pill">GTFS data</span>
+            <span class="tech-pill">Network centrality</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Rome Piazza dei Cinquecento -->
+      <div class="project-card">
+        <img src="images/rome_focus_area.jpg" alt="Map of Piazza dei Cinquecento redevelopment phases in Rome" class="project-image" />
+        <div class="project-body">
+          <div class="project-tag">Mobility: Infrastructures and Services</div>
+          <h3 class="project-title">Urban Public Transport and Construction Sites — Redevelopment of Piazza dei Cinquecento, Rome</h3>
+          <div class="project-meta">Politecnico di Milano — with NET Engineering International</div>
+          <div class="project-desc">
+            <p>
+              A study on pedestrian accessibility during the redevelopment of Piazza dei Cinquecento, Rome's
+              largest intermodal hub in front of Termini station — an intervention tied to the Jubilee 2025
+              timeline. The project segments demand into tourists (65%) and commuters (35%), maps points of
+              interest within a 1,200&nbsp;m walking radius, and uses QGIS and OpenStreetMap to build the
+              pedestrian network.
+            </p>
+            <p>
+              The four real construction phases were grouped into two analytical blocks to simulate, in PTV
+              Visum, which pedestrian paths are disrupted at each stage. The results show that while Phase 1
+              has only a minor impact, Phase 2 blocks 8.3% of paths and increases average walking time from
+              5.7 to 10.6 minutes — with the largest delays for universities, schools, offices and museums.
+            </p>
+          </div>
+          <img src="images/rome_simulation_results.jpg" alt="Average walking time and distance per construction phase" style="margin-bottom:10px;" />
+          <div class="tech-row">
+            <span class="tech-pill">PTV Visum</span>
+            <span class="tech-pill">QGIS</span>
+            <span class="tech-pill">OpenStreetMap</span>
+            <span class="tech-pill">Demand segmentation</span>
+            <span class="tech-pill">Pedestrian accessibility</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- THESIS -->
+    <section id="thesis">
+      <div class="section-eyebrow">06 — Bachelor's Thesis</div>
+      <h2 class="section-title">Electric Mobility and New Models of Cities</h2>
+
+      <div class="thesis-banner">
+        <div class="thesis-content">
+          <span class="coord-tag">UNIVERSITY OF TRIESTE — 2022/2023</span>
+          <h3>Mobilità elettrica e i nuovi modelli di città</h3>
+          <p>
+            My bachelor's thesis examines the shift from internal combustion to electric vehicles —
+            their environmental, economic and technical advantages and limitations — and places it
+            within a broader rethinking of urban mobility models.
+          </p>
+          <p>
+            It covers smart cities, Barcelona's Superblock model, the "Città 30" (30&nbsp;km/h city)
+            approach to street design and road safety, and the rise of shared mobility and
+            Mobility as a Service (MaaS) as drivers of more sustainable, people-centered cities.
+          </p>
+          <a href="TESI_LUCA_SFORZIN.pdf" class="btn" download>↓ Download full thesis (PDF)</a>
+        </div>
+        <div class="thesis-image">
+          <img src="images/thesis_superblock_0.jpg" alt="Diagram of the Superblock urban model — baseline vs superblock configuration" />
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+      <div class="section-eyebrow">07 — Contact</div>
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="about-text" style="margin-bottom:0;">
+        I'm always happy to discuss mobility, infrastructure and transport network projects —
+        feel free to reach out.
+      </p>
+
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="coord-tag">EMAIL</div>
+          <a href="mailto:lucasforzin580@gmail.com">lucasforzin580@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <div class="coord-tag">PHONE</div>
+          <a href="tel:+393408771216">+39 340 877 1216</a>
+        </div>
+        <div class="contact-card">
+          <div class="coord-tag">LOCATION</div>
+          <span class="value">Veneto, Italy</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Built with care — Luca Sforzin, 2026
+    </footer>
+
+  </main>
+</div>
+</body>
+</html>
